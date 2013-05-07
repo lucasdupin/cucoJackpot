@@ -13,13 +13,16 @@ html, body{
 
 #grid {
 	z-index: 101;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 #item1, #item2, #item3 {
 	position: absolute;
 	width: 246px;
 	height: 245px;
-	background: url(../images/items.png);
+	background: url(../images/items.jpg);
 	left: 68px;
 	top: 46px;
 	z-index: 100;
@@ -31,7 +34,9 @@ html, body{
 }
 #item2 {
 	left: 316px;
+	background-position: 246px 0;
 }
 #item3 {
 	left: 561px;
+	background-position: 490px 0;
 }
