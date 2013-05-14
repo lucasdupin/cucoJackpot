@@ -14,6 +14,7 @@ html, body{
 #grid {
 	z-index: 101;
 	position: absolute;
+	pointer-events: none;
 	left: 0;
 	top: 0;
 }
