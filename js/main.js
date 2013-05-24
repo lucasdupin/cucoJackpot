@@ -24,8 +24,8 @@ function init(){
 	for (var i = 0; i < 3; i++) {
 		$('#item'+(i+1)).mousemove(function(ev){
 			currentItem = parseInt(ev.target.id.replace('item','')) - 1
-			accelerations[currentItem] = (123 - Math.abs(ev.offsetX-123)) * ACCELL_SPEED;
-			// console.log(accelerations[currentItem])
+			offset = (ev.offsetX || ev.clientX - $(ev.target).offset().left)
+			accelerations[currentItem] = (123 - Math.abs(offset-123)) * ACCELL_SPEED;
 		})
 		$('#item'+(i+1)).mouseout(function(ev){
 			// Stop accelerating
@@ -41,18 +41,29 @@ function init(){
 	};
 
 	// Loop anim
-	window.requestAnimationFrame(animate);
 	function animate(){
+		window.requestAnimFrame(animate);
 		// Move each image
 		for (var i = 0; i < 3; i++) {
-			if (accelerations[i] == 0) continue;
+			// if (accelerations[i] == 0) continue;
 
 			imagesPos[i] += accelerations[i]
 			$('#item'+(i+1)).css({
 				backgroundPosition: backgroundPosX[i] + "px " + parseInt(imagesPos[i]) + "px"
 			});
 		};
-		// console.log("anim")
-		window.requestAnimationFrame(animate);
 	}
+	window.requestAnimFrame(animate);
 }
+
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+window.requestAnimFrame = function( callback ){
+	window.setTimeout(callback, 1000 / 60);
+};
